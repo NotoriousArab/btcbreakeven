@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BTC Break Even Calculator</title>
+    <link type="text/css" rel="stylesheet" href="Stylesheet.css"/>
+
+</head>
+<body>
+<h1>BTC Break Even Calculator</h1>
+
+<fieldset>
+    <form id="forms">
+        <label for="buy1"></label><input placeholder="Buy" onsubmit="getFirstAmount()" type="text" id="buy1"><br>
+
+        <label for="cost"></label><input placeholder="Cost" onsubmit="getFirstCost()" type="text" id="cost"><br>
+
+        <label for="sell"></label><input placeholder="Sell" onsubmit="getFirstSellAmount()" type="text" id="sell"><br>
+
+        <label for="price"></label><input placeholder="Price" onsubmit="getFirstSellPrice()" type="text" id="price"><br>
+
+        <label for="buy2"></label><input placeholder="Buy" onsubmit="getSecondAmount()" type="text" id="buy2"><br>
+
+        <label for="cost2"></label><input placeholder="Cost" onsubmit="getSecondCost()" type="text" id="cost2"><br><br>
+
+        <input name="Submit" type="button" value="Submit" onclick="getResult((getFirstAmount() * getFirstCost()), getSecondAmount(), getRemainder())"/>
+    </form>
+
+</fieldset>
+
+<p id="result"></p>
+<p id="error"></p>
+<p id="remainder"></p>
+
+<script type="text/javascript">
+
+    function getFirstAmount()
+    {
+        var variable = document.getElementById("buy1").value;
+        return Number(variable);
+    }
+    function getFirstCost()
+    {
+        var variable = document.getElementById("cost").value;
+        return Number(variable);
+    }
+    function getFirstSellAmount()
+    {
+        var variable = document.getElementById("sell").value;
+        return Number(variable);
+    }
+    function getFirstSellPrice()
+    {
+        var variable = document.getElementById("price").value;
+        return Number(variable);
+    }
+    function getSecondAmount()
+    {
+        var variable = document.getElementById("buy2").value;
+        return Number(variable);
+    }
+    function getSecondCost()
+    {
+        var variable = document.getElementById("cost2").value;
+        return Number(variable);
+    }
+
+    //----------------------------------------------------------------------------------------------
+
+    function validityCheck()
+    {
+        if(getFirstAmount() < getFirstSellAmount())
+        {
+            var oldError = document.getElementById("error").innerHTML;
+            document.getElementById("error").innerHTML = "You cannot sell more BTC than you own.";
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    function getRemainder()
+    {
+        return Math.abs(getFirstAmount() - getFirstSellAmount());
+    }
+
+    //----------------------------------------------------------------------------------------------
+
+    function getResult(totalCost, amount, remain)
+    {
+        var check = validityCheck();
+        amount = amount + remain;
+        var finalPrice = totalCost / amount;
+        if(check)
+        {
+            var oldResult = document.getElementById("result").innerHTML;
+            document.getElementById("result").innerHTML = "You need to sell " + amount + " BTC at " + finalPrice;
+        }
+        else
+        {
+            oldResult = document.getElementById("result").innerHTML;
+            document.getElementById("result").innerHTML = "Validity failed. Try again.";
+        }
+
+    }
+</script>
+
+</body>
+</html>
