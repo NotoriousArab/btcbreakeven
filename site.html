@@ -10,19 +10,43 @@
 
 <fieldset>
     <form id="forms">
-        <label for="buy1"></label><input placeholder="Buy" onsubmit="getFirstAmount()" type="text" id="buy1"><br>
 
-        <label for="cost"></label><input placeholder="Cost" onsubmit="getFirstCost()" type="text" id="cost"><br>
+        <div id="column1">
 
-        <label for="sell"></label><input placeholder="Sell" onsubmit="getFirstSellAmount()" type="text" id="sell"><br>
+            <h2>First Transaction</h2>
 
-        <label for="price"></label><input placeholder="Price" onsubmit="getFirstSellPrice()" type="text" id="price"><br>
+            <label for="buy1"></label><input placeholder="Buy" onsubmit="getFirstAmount()" type="text" id="buy1"><br>
 
-        <label for="buy2"></label><input placeholder="Buy" onsubmit="getSecondAmount()" type="text" id="buy2"><br>
+            <label for="cost"></label><input placeholder="Cost" onsubmit="getFirstCost()" type="text" id="cost"><br>
 
-        <label for="cost2"></label><input placeholder="Cost" onsubmit="getSecondCost()" type="text" id="cost2"><br><br>
+            <label for="sell"></label><input placeholder="Sell" onsubmit="getFirstSellAmount()" type="text" id="sell"><br>
 
-        <input name="Submit" type="button" value="Submit" onclick="getResult((getFirstAmount() * getFirstCost()), getSecondAmount(), getRemainder())"/>
+            <label for="price"></label><input placeholder="Price" onsubmit="getFirstSellPrice()" type="text" id="price"><br><br>
+
+            <input name="Calculate" type="button" value="Calculate new balance" onclick="getNewBalance(getFirstSellAmount(), getFirstSellPrice())">
+
+            <p id="balance"></p>
+
+        </div>
+    </form>
+
+    <form>
+        <div id="column2">
+
+            <h2>Second Transaction</h2>
+
+            <label for="buy2"></label><input placeholder="Buy" onsubmit="getSecondAmount()" type="text" id="buy2"><br>
+
+            <label for="cost2"></label><input placeholder="Cost" onsubmit="getSecondCost()" type="text" id="cost2"><br><br>
+
+        </div>
+
+        <div>
+
+            <input name="Submit" type="button" value="Submit" onclick="getResult((getFirstAmount() * getFirstCost()), getSecondAmount(), getRemainder())"/>
+
+        </div>
+
     </form>
 
 </fieldset>
@@ -63,6 +87,15 @@
         var variable = document.getElementById("cost2").value;
         return Number(variable);
     }
+    function getNewBalance(amountBTC, costPer)
+    {
+        var calculation = Number(amountBTC*costPer);
+        var optimalBTC = calculation/getSecondCost();
+        var oldResult = document.getElementById("balance").innerHTML;
+        document.getElementById("balance").innerHTML = "Your new usable balance is " + calculation + ". " +
+                "<br/>Enter in the cost for the 2nd Trans. then click the button again. " +
+                "<br/>The optimal BTC you should buy is " + optimalBTC + "." ;
+    }
 
     //----------------------------------------------------------------------------------------------
 
@@ -70,8 +103,8 @@
     {
         if(getFirstAmount() < getFirstSellAmount())
         {
-            var oldError = document.getElementById("error").innerHTML;
-            document.getElementById("error").innerHTML = "You cannot sell more BTC than you own.";
+            var oldError = document.getElementById("result").innerHTML;
+            document.getElementById("result").innerHTML = "You cannot sell more BTC than you own.";
             return false;
         }
         else
@@ -98,8 +131,8 @@
         }
         else
         {
-            oldResult = document.getElementById("result").innerHTML;
-            document.getElementById("result").innerHTML = "Validity failed. Try again.";
+            oldResult = document.getElementById("error").innerHTML;
+            document.getElementById("error").innerHTML = "Validity failed. Try again.";
         }
 
     }
