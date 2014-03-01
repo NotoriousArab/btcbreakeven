@@ -2,6 +2,7 @@ btcbreakeven
 ============
 
 Webpage to calculate the break even point for bitcoin trading. 
+------------
 
 Updated on 3/1/14 1:27 PM
 - Created a division between transactions for better visibility.
