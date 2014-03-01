@@ -10,12 +10,16 @@ h1 {
     color: #000000;
 }
 
+h2 {
+    color: yellow;
+}
+
 fieldset {
     border: 0;
+    display: inline;
 }
 
 fieldset form input {
-    clear: left;
     color: black;
     border: 0;
     width: 20em;
@@ -34,12 +38,25 @@ input[name="Submit"] {
     font-weight: bold;
 }
 
+input[name="Calculate"] {
+    background: steelblue;
+    color: white;
+    padding: 12px;
+    width: 12em;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 p {
     color: #000000;
     font-weight: bold;
     font-size: 36px;
 }
 
-p.error {
+#balance {
+    font-size: 16px;
+}
+
+#error {
     color: red;
 }
